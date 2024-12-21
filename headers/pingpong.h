@@ -9,9 +9,13 @@
 
 typedef struct pingpong
 {
-	int x;
-	int y;
+	double x;
+	double y;
 	int colour;
+	int	hypotenuse;
+	double	angle;
+	int	direction_x;
+	int direction_y;
 	int	radius;
 	int	start;
 } t_pingpong;

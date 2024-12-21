@@ -5,12 +5,12 @@ void draw_circle(t_data *data, t_pingpong *ball)
     int step_x;
     int step_y;
 
-    step_x = ball->x - ball->radius;
-    while (step_x <= ball->x + ball->radius)
+    step_x = (int)ball->x - (int)ball->radius;
+    while (step_x <= (int)ball->x + (int)ball->radius)
     {
-        if (ball->radius * ball->radius - (step_x - ball->x) * (step_x - ball->x) >= 0)
+        if ((int)ball->radius * (int)ball->radius - (step_x - (int)ball->x) * (step_x - (int)ball->x) >= 0)
         {
-            step_y = sqrt((ball->radius * ball->radius - (step_x - ball->x) * (step_x - ball->x)));
+            step_y = sqrt(((int)ball->radius * (int)ball->radius - (step_x - (int)ball->x) * (step_x - (int)ball->x)));
             colorise(data, step_x, ball->y - step_y, ball->colour);
             colorise(data, step_x, ball->y + step_y, ball->colour);
             solid_fill(data, step_x, ball->y + step_y, ball->y - step_y, ball->colour);

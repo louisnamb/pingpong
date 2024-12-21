@@ -43,18 +43,24 @@ void	initialisation(t_data *mlx)
 {
 	mlx->mlx = mlx_init();
 	mlx->width = 680;
-	mlx->h = 470;
+	mlx->h = 480;
 	mlx->game = malloc(sizeof(t_pingpong));
 	if (!mlx->game)
 		return;
-	mlx->game->x = 100;
-    mlx->game->y = 110;
-	mlx->game->radius = 10;
-    mlx->game->colour = 0x00FF0000;
+	mlx->game->x = 340.0;
+    mlx->game->y = 240.0;
+	mlx->game->radius = 10.0;
+    mlx->game->colour = 0xFF0000;
 	mlx->game->start = 1;
+	mlx->game->angle = (double)(rand() % 100) / 100.0 * 2 * M_PI; // produce a random angle from 0 to 2*Pi
 	mlx->win = mlx_new_window(mlx->mlx, mlx->width, mlx->h, "fdf");
 	mlx->img = mlx_new_image(mlx->mlx, mlx->width, mlx->h);
 	mlx->addr = mlx_get_data_addr(mlx->img, &mlx->bbp, &mlx->llen, &mlx->end);
+	if (!mlx->addr || !mlx->img)
+	{
+		write(1, "Error: Failed to create image or get address\n", 45);
+		exit(1);
+	}
 	mlx_hook(mlx->win, 17, 0, end, mlx);
 	mlx_hook(mlx->win, 2, 1L << 0, keys_pressed, mlx);
 	return ;
@@ -74,6 +80,7 @@ int	main()
 	else
 		initialisation(mlx);
 	draw_bounce(mlx, mlx->game);
+//	mlx_loop_hook(mlx->mlx, draw_bounce, &mlx);
 	mlx_loop(mlx->mlx);
 	return (0);
 }
